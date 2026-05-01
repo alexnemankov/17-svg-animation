@@ -96,6 +96,16 @@ Because the `AnimationViewer` allows users to zoom out significantly or pan infi
 - Instead, apply backgrounds (like radial gradients) to a massive container div wrapping the SVG (e.g., `width: 10000px; height: 10000px;`).
 - Crucially, apply `flex-shrink: 0;` to this massive container so that the global flex-based layout does not horizontally or vertically squish your background. This guarantees a seamless backdrop regardless of pan or zoom state.
 
+### Greenscreen Mode
+The `AnimationViewer` provides a built-in **Greenscreen Mode** (`#08fe0b` background) to allow users to key out the animation background in video editors. 
+- The viewer achieves this by adding a `.greenscreen-mode` CSS class to the root wrapper.
+- If your animation provides a custom background (like the `Padlock`'s radial gradient), you **must** write a CSS rule to hide your custom background when this class is active. For example:
+  ```css
+  .greenscreen-mode .my-custom-container {
+      background: transparent !important;
+  }
+  ```
+
 ## 7. Available Scripts
 
 - `npm run dev`: Starts the local development server (Vite).

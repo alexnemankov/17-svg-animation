@@ -13,6 +13,10 @@
     background: radial-gradient(circle at center, #2a2d35 0%, #111216 400px);
 }
 
+.greenscreen-mode .padlock-container {
+    background: transparent !important;
+}
+
 .padlock-container svg {
     width: 600px;
     height: 600px;

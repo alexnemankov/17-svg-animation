@@ -13,6 +13,7 @@ export const AnimationViewer: React.FC<AnimationViewerProps> = ({ children }) =>
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [showUI, setShowUI] = useState(true);
+  const [isGreenscreen, setIsGreenscreen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -61,11 +62,13 @@ export const AnimationViewer: React.FC<AnimationViewerProps> = ({ children }) =>
   return (
     <div 
       ref={containerRef}
+      className={isGreenscreen ? 'greenscreen-mode' : ''}
       style={{ 
         width: '100vw', 
         height: '100vh', 
         overflow: 'hidden', 
         position: 'relative',
+        backgroundColor: isGreenscreen ? '#08fe0b' : 'transparent',
         cursor: isDragging ? 'grabbing' : 'grab'
       }}
       onMouseDown={handleMouseDown}
@@ -202,6 +205,20 @@ export const AnimationViewer: React.FC<AnimationViewerProps> = ({ children }) =>
               }}
             >
               Reset View
+            </button>
+            
+            <button 
+              onClick={() => setIsGreenscreen(!isGreenscreen)}
+              style={{
+                backgroundColor: isGreenscreen ? '#08fe0b' : 'transparent',
+                border: isGreenscreen ? '1px solid #08fe0b' : '1px dashed #08fe0b',
+                color: isGreenscreen ? '#000' : '#08fe0b',
+                padding: '5px',
+                fontSize: '12px',
+                marginTop: '5px'
+              }}
+            >
+              Greenscreen Mode
             </button>
           </div>
         </div>
