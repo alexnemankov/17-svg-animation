@@ -169,6 +169,27 @@ export const AnimationViewer: React.FC<AnimationViewerProps> = ({ children }) =>
               />
             </div>
             
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', flex: 1 }}>
+                <label style={{ fontSize: '12px' }}>X Position</label>
+                <input 
+                  type="number" 
+                  value={position.x} 
+                  onChange={(e) => setPosition(p => ({ ...p, x: parseInt(e.target.value) || 0 }))}
+                  style={{ width: '100%', background: 'rgba(0,0,0,0.5)', color: '#00F0FF', border: '1px solid #00F0FF', padding: '4px', borderRadius: '4px' }}
+                />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', flex: 1 }}>
+                <label style={{ fontSize: '12px' }}>Y Position</label>
+                <input 
+                  type="number" 
+                  value={position.y} 
+                  onChange={(e) => setPosition(p => ({ ...p, y: parseInt(e.target.value) || 0 }))}
+                  style={{ width: '100%', background: 'rgba(0,0,0,0.5)', color: '#00F0FF', border: '1px solid #00F0FF', padding: '4px', borderRadius: '4px' }}
+                />
+              </div>
+            </div>
+            
             <button 
               onClick={resetView}
               style={{
