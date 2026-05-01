@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { IsometricServersWrapper } from './IsometricServers';
 import { PadlockWrapper } from './Padlock';
+import { BellNotificationWrapper } from './BellNotification';
 
 export interface AnimationDefinition {
   id: string;
@@ -27,4 +28,11 @@ registerAnimation({
   title: 'Minimal Padlock',
   description: 'A glowing padlock with particle physics and mechanical states.',
   component: PadlockWrapper,
+});
+
+registerAnimation({
+  id: 'bell-notification',
+  title: 'Bell Notification',
+  description: 'A ringing bell animation with notification badge and states.',
+  component: BellNotificationWrapper,
 });

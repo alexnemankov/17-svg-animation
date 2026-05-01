@@ -1,0 +1,122 @@
+.bell-container {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1 / 1;
+}
+
+/* Background for infinite panning */
+.bell-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10000px;
+  height: 10000px;
+  flex-shrink: 0;
+  background-color: #F9F9FB; /* Soft modern background */
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Greenscreen support */
+.greenscreen-mode .bell-background {
+  background: transparent !important;
+}
+
+/* Animation Elements */
+.bell-group {
+  /* Pivot point set to the top of the hook for a natural pendulum hang */
+  transform-origin: 50px 16px;
+}
+
+.is-animating .bell-group {
+  animation: bell-swing 4s infinite;
+}
+
+.bell-path {
+  fill: #FFFFFF;
+  stroke: #1E1E24;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.hook {
+  fill: none;
+  stroke: #1E1E24;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.clapper {
+  fill: #1E1E24;
+  stroke: none;
+}
+
+.badge {
+  fill: #FF3B30; /* Vibrant Red Accent */
+  stroke: #FFFFFF;
+  stroke-width: 2.5;
+  /* Origin set strictly to the center of the badge for proper scaling */
+  transform-origin: 67px 27px;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.is-animating .badge {
+  animation: bell-badgePop 4s infinite;
+}
+
+.is-static .badge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.is-read .badge {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.ripple {
+  fill: none;
+  stroke: #1E1E24;
+  transform-origin: 50px 48px;
+  opacity: 0;
+}
+
+/* Stagger the ripples to sync perfectly with the pendulum peaks */
+.is-animating .ripple-1 { animation: bell-ripple 4s infinite 0.32s; }
+.is-animating .ripple-2 { animation: bell-ripple 4s infinite 0.64s; }
+.is-animating .ripple-3 { animation: bell-ripple 4s infinite 0.96s; }
+
+/* Keyframes */
+@keyframes bell-swing {
+  /* Mimicking a damped pendulum. 
+     Constant frequency, decaying amplitude. 
+  */
+  0%   { transform: rotate(0deg); animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  8%   { transform: rotate(28deg); animation-timing-function: ease-in-out; }
+  16%  { transform: rotate(-22deg); animation-timing-function: ease-in-out; }
+  24%  { transform: rotate(15deg); animation-timing-function: ease-in-out; }
+  32%  { transform: rotate(-8deg); animation-timing-function: ease-in-out; }
+  40%  { transform: rotate(3deg); animation-timing-function: ease-in-out; }
+  48%  { transform: rotate(0deg); animation-timing-function: linear; }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes bell-ripple {
+  /* Scale outward while simultaneously thinning the stroke */
+  0%      { transform: scale(0.6); opacity: 0; stroke-width: 2.5px; }
+  2%      { opacity: 0.4; stroke-width: 2.5px; }
+  30%     { transform: scale(2.2); opacity: 0; stroke-width: 0.2px; }
+  100%    { transform: scale(2.2); opacity: 0; stroke-width: 0.2px; }
+}
+
+@keyframes bell-badgePop {
+  /* Pop in with a satisfying overshoot curve, wait, anticipate, then vanish */
+  0%, 28%  { transform: scale(0); opacity: 0; }
+  29%      { transform: scale(0); opacity: 1; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  36%, 80% { transform: scale(1); opacity: 1; }
+  85%      { transform: scale(1.2); opacity: 1; animation-timing-function: ease-in; }
+  90%, 100% { transform: scale(0); opacity: 0; }
+}
